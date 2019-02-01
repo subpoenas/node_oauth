@@ -1,0 +1,50 @@
+실행 방법
+
+1) Node.js  설치
+
+2) C:\temp\oauth2 생성
+
+      3) C:\temp\oauth2\npm install oauth2-server node-json-db
+
+      4) C:\temp\oauth2\첨부 압축 파일 해제      
+
+      5) C:\temp\oauth2\node makeUsers.js 실행
+         
+      6) C:\temp\oauth2\node o2server.js 실행
+
+
+
+사용자 정보 변경
+1) C:\temp\oauth2\oauth\tokenDataBase.json 파일 오픈 및 수정
+{
+"users":[
+{
+	"userId":"test1",
+	"password":"test1",
+	"clientId":"test1",
+	"clientSecret":"test1",
+	"grantType":"password",
+	"token":””””
+}
+          ]
+}
+
+* grantType은 현재 “password” 와 “client_credentials”  두가지만 제공
+
+
+
+Token 기반 테스트 API 추가 방법
+1) C:\temp\oauth2\oauth\o2server.js 파일 오픈 및 수정
+
+아래 코드 추가
+
+app.get('/device', app.oauth.authorise(), function (req, res) {
+
+  var response = {
+  	  "requestId": "7b8514e6-230d-41cc-b3c2-512bca15abf0“
+   }
+
+  res.send(response);
+});
+
+* api 정의 시 반드시 app.oauth.authrorise() 함수를 parameter로 사용
